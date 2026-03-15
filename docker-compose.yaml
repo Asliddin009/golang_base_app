@@ -1,0 +1,23 @@
+services:
+  db_auth:
+    image: postgres:14-alpine
+    container_name: db_auth
+    ports:
+      - ${POSTGRES_PORT}:5432
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - ./db_auth_data:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - notes_net
+
+networks:
+  notes_net:
+    driver: bridge
+
+volumes:
+  db_auth_data:
+    driver: local
